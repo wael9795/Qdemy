@@ -65,28 +65,28 @@ export const stripeWebhooks = async (request, response) => {
 
   try {
     event = Stripe.webhooks.constructEvent(request.body, sig, process.env.STRIPE_WEBHOOK_SECRET);
-    console.log('4');
+ 
   }
   catch (err) {
-    console.log('5');
+   
     response.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  console.log('6');
-  console.log(event);
+ 
   // Handle the event
   switch (event.type) {
     case 'payment_intent.succeeded': {
-      console.log('7');
+ 
       const paymentIntent = event.data.object;
       const paymentIntentId = paymentIntent.id;
 
       const session = await stripeInstance.checkout.sessions.list({
         payment_intent: paymentIntentId
       })
+
       const { purchaseId } = session.data[0].metadata;
       const purchaseData = await Purchase.findById(purchaseId);
-      const userData = User.findById(purchaseData.userId);
+      const userData = await User.findById(purchaseData.userId);
       const courseData = await Course.findById(purchaseData.courseId.toString());
 
 
@@ -111,10 +111,8 @@ export const stripeWebhooks = async (request, response) => {
       })
       const { purchaseId } = session.data[0].metadata;
       const purchaseData = await Purchase.findById(purchaseId);
-      console.log('8');
       purchaseData.status = "failed";
       await purchaseData.save();
-      console.log('9');
       break;
     }
     // ... handle other event types
