@@ -50,7 +50,7 @@ import time_left_clock_icon from "./time_left_clock_icon.svg";
 import time_clock_icon from "./time_clock_icon.svg";
 import user_icon from "./user_icon.svg";
 import home_icon from "./home_icon.svg";
-import arrow_to_down_2 from './arrow_to_down_2.png'
+import arrow_to_down_2 from "./arrow_to_down_2.png";
 import add_icon from "./add_icon.svg";
 import my_course_icon from "./my_course_icon.svg";
 import person_tick_icon from "./person_tick_icon.svg";
@@ -65,16 +65,16 @@ import patients_icon from "./patients_icon.svg";
 import play_icon from "./play_icon.svg";
 import blue_tick_icon from "./blue_tick_icon.svg";
 import course_4 from "./course_4.png";
-import arrow_to_down from './arrow_to_down.png'
+import arrow_to_down from "./arrow_to_down.png";
 import profile_img from "./profile_img.png";
 import profile_img2 from "./profile_img2.png";
 import profile_img3 from "./profile_img3.png";
 import lesson_icon from "./lesson_icon.svg";
 import q_icon from "./q-icon.svg";
-import dashboard_new from './dashboard_new.svg'
-import add_new from './add_new.svg'
-import student_new from './student_new.svg'
-import x_platform from './x-platform.png'
+import dashboard_new from "./dashboard_new.svg";
+import add_new from "./add_new.svg";
+import student_new from "./student_new.svg";
+import x_platform from "./x-platform.png";
 export const assets = {
   dashboard_new,
   x_platform,
@@ -473,18 +473,7 @@ export const dummyCourses = [
     ],
     educator: "675ac1512100b91a6d9b8b24",
     enrolledStudents: ["user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V", "user_2qjlgkAqIMpiR2flWIRzvWKtE0w"],
-    courseRatings: [
-      {
-        userId: "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
-        rating: 4.5,
-        _id: "6773e37360cb0ab974342315",
-      },
-      {
-        userId: "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-        rating: 4,
-        _id: "6773e37360cb0ab974342316",
-      },
-    ],
+    courseRatings: [],
     createdAt: "2024-12-27T11:30:00.000Z",
     updatedAt: "2024-12-31T04:14:49.773Z",
     __v: 2,
@@ -548,18 +537,7 @@ export const dummyCourses = [
     ],
     educator: "675ac1512100b91a6d9b8b24",
     enrolledStudents: ["user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V", "user_2qjlgkAqIMpiR2flWIRzvWKtE0w"],
-    courseRatings: [
-      {
-        userId: "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
-        rating: 4.5,
-        _id: "6773e37360cb0ab974342317",
-      },
-      {
-        userId: "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-        rating: 5,
-        _id: "6773e37360cb0ab974342318",
-      },
-    ],
+    courseRatings: [],
     createdAt: "2024-12-17T08:16:53.622Z",
     updatedAt: "2024-12-31T05:31:27.290Z",
     __v: 2,
@@ -623,13 +601,7 @@ export const dummyCourses = [
     ],
     educator: "675ac1512100b91a6d9b8b24",
     enrolledStudents: ["user_2qjlgkAqIMpiR2flWIRzvWKtE0w"],
-    courseRatings: [
-      {
-        userId: "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
-        rating: 4,
-        _id: "6773e37360cb0ab974342319",
-      },
-    ],
+    courseRatings: [],
     createdAt: "2024-12-17T08:16:53.622Z",
     updatedAt: "2024-12-31T05:32:55.357Z",
     __v: 1,
@@ -763,13 +735,7 @@ export const dummyCourses = [
     ],
     educator: "675ac1512100b91a6d9b8b24",
     enrolledStudents: ["user_2qjlgkAqIMpiR2flWIRzvWKtE0w"],
-    courseRatings: [
-      {
-        userId: "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
-        rating: 4.5,
-        _id: "6773e37360cb0ab974342320",
-      },
-    ],
+    courseRatings: [],
     createdAt: "2024-12-17T08:16:53.622Z",
     updatedAt: "2025-01-02T06:53:59.753Z",
     __v: 1,
@@ -833,16 +799,13 @@ export const dummyCourses = [
     ],
     educator: "675ac1512100b91a6d9b8b24",
     enrolledStudents: ["user_2qjlgkAqIMpiR2flWIRzvWKtE0w"],
-    courseRatings: [
-      {
-        userId: "user_2qjlgkAqIMpiR2flWIRzvWKtE0w",
-        rating: 5,
-        _id: "6773e37360cb0ab974342321",
-      },
-    ],
+    courseRatings: [],
     createdAt: "2024-12-17T08:16:53.622Z",
     updatedAt: "2025-01-02T06:56:13.208Z",
     __v: 1,
     courseThumbnail: "https://img.youtube.com/vi/WbV3zRgpw_E/maxresdefault.jpg",
   },
 ];
+
+
+

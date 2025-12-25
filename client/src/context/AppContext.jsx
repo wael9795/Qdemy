@@ -1,17 +1,22 @@
-
-import { createContext, useEffect, useState } from "react"; // org
+import { createContext, use, useEffect, useState } from "react"; // org
 import { dummyCourses } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
+import { useAuth, useUser } from "@clerk/clerk-react";
+
 const AppContext = createContext();
+
 export const AppContextProvider = (props) => {
   const currency = import.meta.env.VITE_CURRENCY;
 
   const navigate = useNavigate();
 
+  const { getToken } = useAuth();
+  const { user } = useUser();
+
   const [allCourses, setAllCourses] = useState([]);
   const [isEducator, setIsEducator] = useState(true);
-  const[enrolledCourse,setEnrolledCourse]=useState([])
+  const [enrolledCourse, setEnrolledCourse] = useState([]);
 
   const fetchAllCourses = async () =>
     //fetch All Courses
@@ -36,19 +41,13 @@ export const AppContextProvider = (props) => {
   const chapterTimeCalc = (chapter) => {
     // calc course chapter time
     let time = 0;
-    chapter.chapterContent.map(
-      (lecture) => (time = time + lecture.lectureDuration)
-    );
+    chapter.chapterContent.map((lecture) => (time = time + lecture.lectureDuration));
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
   };
 
   const courseDurationCalc = (course) => {
     let time = 0;
-    course.courseContent.map((chapter) =>
-      chapter.chapterContent.map(
-        (lecture) => (time = time + lecture.lectureDuration)
-      )
-    );
+    course.courseContent.map((chapter) => chapter.chapterContent.map((lecture) => (time = time + lecture.lectureDuration)));
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
   };
 
@@ -62,17 +61,25 @@ export const AppContextProvider = (props) => {
     return totalLecture;
   };
 
+  const fetchEnrolledCourse = async () => {
+    setEnrolledCourse(dummyCourses);
+  };
 
-const fetchEnrolledCourse=async()=>{
-  setEnrolledCourse(dummyCourses)
-}
-
-
-  
   useEffect(() => {
     fetchAllCourses(), [];
-    fetchEnrolledCourse()
+    fetchEnrolledCourse();
   });
+
+  const logToken = async () => {
+    console.log(await getToken());
+  };
+
+  useEffect(() => {
+    if (user) {
+      logToken();
+    }
+  }, [user]);
+
   const value = {
     currency,
     allCourses,
@@ -83,10 +90,9 @@ const fetchEnrolledCourse=async()=>{
     chapterTimeCalc,
     courseDurationCalc,
     numberLecturesCalc,
-    enrolledCourse,fetchEnrolledCourse,
+    enrolledCourse,
+    fetchEnrolledCourse,
   };
-  return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
-  );
+  return <AppContext.Provider value={value}>{props.children}</AppContext.Provider>;
 };
 export default AppContext;
