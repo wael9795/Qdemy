@@ -4,6 +4,8 @@ import { Purchase } from "../models/Purchase.js";
 import Stripe from "stripe";
 import Course from "../models/Course.js";
 
+
+// get user data
 export const getUserData = async (req, res) => {
   try {
     const userId = req.auth.userId;
@@ -31,6 +33,9 @@ export const userEnrolledCourses = async (req, res) => {
   }
 };
 
+
+
+
 // purchase Course
 export const purchaseCourse = async (req, res) => {
   try {
@@ -47,7 +52,7 @@ export const purchaseCourse = async (req, res) => {
     const purchaseData = {
       courseId: courseData._id,
       userId,
-      amountPaid: (courseData.coursePrice - (courseData.discount * courseData.coursePrice) / 100).toFixed(2),
+      amount: (courseData.coursePrice - courseData.discount * courseData.coursePrice / 100).toFixed(2),
     };
 
     const newPurchase = await Purchase.create(purchaseData);
@@ -58,6 +63,7 @@ export const purchaseCourse = async (req, res) => {
 
     const currency = process.env.CURRENCY.toLowerCase();
 
+    // creating line items to for stripe
     const line_items = [
       {
         price_data: {
@@ -65,11 +71,15 @@ export const purchaseCourse = async (req, res) => {
           product_data: {
             name: courseData.courseTitle,
           },
-          unit_amount: Math.floor(newPurchase.amountPaid) * 100,
+          unit_amount: Math.floor(newPurchase.amount) * 100,
         },
         quantity: 1,
       },
     ];
+
+
+
+    // creating checkout session
     const session = await stripeInstance.checkout.sessions.create({
       success_url: `${origin}/loading/my-enrollments`,
       cancel_url: `${origin}/`,
@@ -80,7 +90,7 @@ export const purchaseCourse = async (req, res) => {
       },
     });
     res.json({ success: true, session_url: session.url });
-    //creating line items to for stripe
+
   } catch (error) {
     res.json({ success: false, message: error.message });
   }
