@@ -35,8 +35,23 @@ app.use("/api/user", express.json(), userRouter);
 
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
+// Debug: Log all registered routes
+app._router.stack.forEach(function (r) {
+  if (r.route && r.route.path) {
+    console.log("Registered Route:", r.route.path)
+  }
+});
 
-
+// Catch-all route to debug 404s
+app.use('*', (req, res) => {
+  console.log(`[DEBUG] 404 Hit: ${req.originalUrl}`);
+  res.status(404).json({
+    success: false,
+    message: "Route not found in Express (Debug Catch-All)",
+    path: req.originalUrl,
+    method: req.method
+  });
+});
 
 
 //port
