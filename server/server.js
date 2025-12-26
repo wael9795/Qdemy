@@ -34,7 +34,7 @@ app.use("/api/user", express.json(), userRouter);
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 // Debug logging
-app.use('*', (req, res) => {
+app.use((req, res) => {
   res.status(404).json({ msg: "Debug Catch-All Hit", path: req.originalUrl });
 });
 
