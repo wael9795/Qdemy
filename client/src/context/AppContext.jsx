@@ -104,7 +104,7 @@ export const AppContextProvider = (props) => {
 
   const numberLecturesCalc = (course) => {
     let totalLecture = 0;
-    course.courseContent?.forEach((chapter) => {
+    course?.courseContent?.forEach((chapter) => {
       if (Array.isArray(chapter.chapterContent)) {
         totalLecture = totalLecture + chapter.chapterContent.length;
       }
