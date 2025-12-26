@@ -53,50 +53,45 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import connectDB from "./configs/mongodb.js";
+import connectCloudinary from "./configs/cloudinary.js";
 import { clerkWebhooks, stripeWebhooks } from "./controllers/webhooks.js";
 import educatorRouter from "./routes/educatorRoutes.js";
-import { clerkMiddleware } from "@clerk/express";
-import connectCloudinary from "./configs/cloudinary.js";
 import courseRouter from "./routes/courseRoute.js";
 import userRouter from "./routes/userRoutes.js";
+import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
-// ✅ middlewares العامة
+// middlewares العامة
 app.use(cors());
 app.use(express.json());
-app.use(
-  clerkMiddleware({
-    publicRoutes: [
-      "/",
-      "/api/course/all",
-      "/api/course/:id"
-    ]
-  })
-);
 
-
-// ✅ اتصالات
+// اتصالات
 await connectDB();
 await connectCloudinary();
 
-// ✅ Routes
+// 🔓 Routes عامة (بدون Clerk)
 app.get("/", (req, res) => {
-  res.send("API Working - DEBUG MODE");
+  res.send("API Working");
 });
 
-app.post("/clerk", clerkWebhooks);
-app.use("/api/educator", educatorRouter);
 app.use("/api/course", courseRouter);
+
+// 🔐 Clerk بعد الـ public routes
+app.use(clerkMiddleware());
+
+// Routes محمية
+app.use("/api/educator", educatorRouter);
 app.use("/api/user", userRouter);
 
-// ⚠️ Stripe يحتاج raw
+// Webhooks
+app.post("/clerk", clerkWebhooks);
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
-// ❗ اجعل هذا آخر شيء
+// 404
 app.use((req, res) => {
   res.status(404).json({
-    msg: "Route Not Found",
+    error: "Route Not Found",
     path: req.originalUrl
   });
 });
