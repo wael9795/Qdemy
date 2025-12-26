@@ -2,7 +2,7 @@ import { clerkClient } from "@clerk/express";
 import { v2 as clousdinary } from "cloudinary";
 import Course from "../models/Course.js";
 import { Purchase } from "../models/Purchase.js";
-import User from "../models/User.js"; 
+import User from "../models/User.js";
 // update user role to educator
 export const updateRoleToEducator = async (req, res) => {
   try {
@@ -88,7 +88,9 @@ export const educatorDashboardData = async (req, res) => {
       });
     }
     res.json({ success: true, dashboardData: { totalCourses, totalEarnings, enrolledStudentsData } });
-  } catch (error) {}
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
 };
 
 // get enrolled students data with purchase data
