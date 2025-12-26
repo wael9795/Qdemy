@@ -64,7 +64,6 @@ const app = express();
 
 // middlewares العامة
 app.use(cors());
-app.use(express.json());
 
 // اتصالات
 await connectDB();
@@ -87,6 +86,7 @@ app.use("/api/user", userRouter);
 // Webhooks
 app.post("/clerk", clerkWebhooks);
 app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
+app.use(express.json());
 
 // 404
 app.use((req, res) => {
