@@ -51,7 +51,11 @@ const Navbar = () => {
         }`}
     >
       <Link to={"/"} onClick={() => scrollTo(0, 0)}>
-        <img onClick={() => navigate('/')} src={assets.logo} alt="Logo" className='w-28 lg:w-32 cursor-pointer' /> <span className="text-xs text-red-500 font-bold hidden md:block">v2.0 (DEBUG)</span>
+        <img
+          src={assets.logo_three}
+          alt="Logo"
+          className="w-28 lg:w-30 cursor-pointer"
+        />
       </Link>
       <div className="hidden md:flex items-center gap-5 text-gray-600">
         <div className="flex items-center gap-5">

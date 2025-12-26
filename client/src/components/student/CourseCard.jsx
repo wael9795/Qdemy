@@ -14,7 +14,7 @@ const CourseCard = ({ course }) => {
       <img className="w-full" src={course.courseThumbnail} alt="" />
       <div className="p-4 pb-5" >
         <h4 className='md:text-base font-bold capitalize'>{course.courseTitle}</h4>
-        <p className='md:text-base text-sm text-gray-500'>{course.educator.name}</p>
+        <p className='md:text-base text-sm text-gray-500'>{course.educator?.name}</p>
         <div className="flex items-center gap-3">
           <p className='md:text-base text-sm text-blue-700'>{averageRating(course)}</p>
           <div className="flex items-center gap-1">

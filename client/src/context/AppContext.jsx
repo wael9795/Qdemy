@@ -92,19 +92,19 @@ export const AppContextProvider = (props) => {
   const chapterTimeCalc = (chapter) => {
     // calc course chapter time
     let time = 0;
-    chapter.chapterContent?.map((lecture) => (time = time + lecture.lectureDuration));
+    chapter.chapterContent.map((lecture) => (time = time + lecture.lectureDuration));
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
   };
 
   const courseDurationCalc = (course) => {
     let time = 0;
-    course.courseContent?.map((chapter) => chapter.chapterContent?.map((lecture) => (time = time + lecture.lectureDuration)));
+    course.courseContent.map((chapter) => chapter.chapterContent.map((lecture) => (time = time + lecture.lectureDuration)));
     return humanizeDuration(time * 60 * 1000, { units: ["h", "m"] });
   };
 
   const numberLecturesCalc = (course) => {
     let totalLecture = 0;
-    course?.courseContent?.forEach((chapter) => {
+    course.courseContent.forEach((chapter) => {
       if (Array.isArray(chapter.chapterContent)) {
         totalLecture = totalLecture + chapter.chapterContent.length;
       }
