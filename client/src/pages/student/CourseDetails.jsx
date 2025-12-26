@@ -102,9 +102,9 @@ const CourseDetails = () => {
                 <img className="w-4" key={i} src={i < Math.floor(averageRating(courseData)) ? assets.star_gold_3 : assets.star_white} alt="" />
               ))}
             </div>
-            <p className="md:text-base text-sm text-blue-500">({courseData.courseRatings.length} ratings)</p>
+            <p className="md:text-base text-sm text-blue-500">({courseData.courseRatings?.length || 0} ratings)</p>
             <p className="text-red-500">
-              {courseData.enrolledStudents.length} {courseData.enrolledStudents.length > 1 ? "students" : "student"}
+              {courseData.enrolledStudents?.length || 0} {courseData.enrolledStudents?.length > 1 ? "students" : "student"}
             </p>
 
           </div>
@@ -124,7 +124,7 @@ const CourseDetails = () => {
                       <p className="font-medium md:text-base text-sm">{chapter.chapterTitle}</p>
                     </div>
                     <p className="text-sm md:text-default">
-                      {chapter.chapterContent.length} lectures - {chapterTimeCalc(chapter)}
+                      {chapter.chapterContent?.length || 0} lectures - {chapterTimeCalc(chapter)}
                     </p>
                   </div>
                   <div className={`overflow-hidden transition-all duration-300 ${openSection[index] ? "max-h-96" : "max-h-0"}`}>
@@ -214,7 +214,7 @@ const CourseDetails = () => {
             <div className="pt-6">
               <p className="md:text-xl text-lg font-medium text-gray-800">What's Included</p>
               <ul className="ml-4 pt-2 text-sm md:text-default list-disc text-gray-500">
-                <li>{courseData.courseContent.length} chapters</li>
+                <li>{courseData.courseContent?.length || 0} chapters</li>
                 <li>{numberLecturesCalc(courseData)} lectures</li>
                 <li>{courseDurationCalc(courseData)} total duration</li>
                 <li>Lifetime access with free updates</li>

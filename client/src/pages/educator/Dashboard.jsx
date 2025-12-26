@@ -28,7 +28,7 @@ const Dashboard = () => {
     }
   };
   useEffect(() => {
-      if (isEducator) {
+    if (isEducator) {
       fetchDashboardData();
     }
   }, [isEducator]);
@@ -42,7 +42,7 @@ const Dashboard = () => {
           <div className="flex items-center gap-3 shadow-custom-card border border-blue-500 p-4 w-60 rounded-md">
             <img src={assets.patients_icon} alt="patients_icon" />
             <div>
-              <p className="text-2xl font-medium text-gray-600">{dashboardData.enrolledStudentsData.length}</p>
+              <p className="text-2xl font-medium text-gray-600">{dashboardData.enrolledStudentsData?.length || 0}</p>
               <p className="text-base text-gray-500">Total Enrollments</p>
             </div>
           </div>
