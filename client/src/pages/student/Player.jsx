@@ -33,7 +33,7 @@ const Player = () => {
     const course = enrolledCourse.find((course) => course._id === courseId);
     if (course) {
       setCourseData(course);
-      course.courseRating.map((item) => {
+      course.courseRatings?.map((item) => {
         if (item.userId === userData._id) {
           setInitialRating(item.rating);
         }
@@ -139,12 +139,12 @@ const Player = () => {
                       <p className="font-medium md:text-base text-sm">{chapter.chapterTitle}</p>
                     </div>
                     <p className="text-sm md:text-default">
-                      {chapter.chapterContent.length} lectures - {chapterTimeCalc(chapter)}
+                      {chapter.chapterContent?.length || 0} lectures - {chapterTimeCalc(chapter)}
                     </p>
                   </div>
                   <div className={`overflow-hidden transition-all duration-300 ${openSection[index] ? 'max-h-96' : 'max-h-0'}`}>
                     <ul className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300">
-                      {chapter.chapterContent.map((lecture, index) => (
+                      {chapter.chapterContent?.map((lecture, index) => (
                         <li key={index} className="flex items-start gap-2 py-1">
                           <img src={progressData && progressData.lectureCompleted.includes(lecture.lectureId) ? assets.blue_tick_icon : assets.play_icon} alt="play icon" className="w-4 h-4 mt-1" />
                           <div className="flex items-center justify-between w-full to-gray-800 text-xs md:text-default">
