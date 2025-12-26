@@ -6,6 +6,8 @@ import { assets } from "../../assets/assets";
 import humanizeDuration from "humanize-duration";
 import Footer from "../../components/student/Footer";
 import YouTube from "react-youtube";
+import { toast } from "react-toastify";
+import axios from "axios";
 const CourseDetails = () => {
   const { id } = useParams();
   const [courseData, setCourseData] = useState(null);
@@ -13,14 +15,67 @@ const CourseDetails = () => {
   const [isAlreadyEnrolled, setIsAlreadyEnrolled] = useState(false);
   const [playerData, setPlayerData] = useState(null);
 
-  const { allCourses, averageRating, chapterTimeCalc, courseDurationCalc, numberLecturesCalc, currency } = useContext(AppContext);
+  const { allCourses, averageRating, chapterTimeCalc, courseDurationCalc, numberLecturesCalc, currency, backendUrl, userData, getToken } = useContext(AppContext);
+
+
   const fetchCourseData = async () => {
-    const findCourse = allCourses.find((course) => course._id === id);
-    setCourseData(findCourse);
+    try {
+      const { data } = await axios.get(backendUrl + '/api/course/' + id);
+      if (data.success) {
+        setCourseData(data.courseData);
+      } else {
+        toast.error(data.message);
+      }
+
+
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
+
+
+
+  const enrollCourse = async () => {
+    try {
+      if (!userData) {
+        return toast.warn("Please login first");
+      }
+      if (isAlreadyEnrolled) {
+        return toast.warn("You are already enrolled in this course");
+      }
+
+      const token = await getToken();
+      const { data } = await axios.post(backendUrl + '/api/user/purchase', { courseId: courseData._id }, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (data.success) {
+        const { session_url } = data;
+        window.location.replace(session_url);
+      } else {
+        toast.error(data.message);
+      }
+
+    } catch (error) {
+      toast.error(error.message);
+    }
+  }
+
   useEffect(() => {
     fetchCourseData();
-  }, [allCourses]);
+  }, []);
+
+
+  useEffect(() => {
+    if (userData && courseData) {
+      setIsAlreadyEnrolled(userData.enrolledCourses.includes(courseData._id));
+    }
+  }, [userData, courseData]);
+
+
+
+
   const toggleSection = (index) => {
     setOpenSection((prev) => ({ ...prev, [index]: !prev[index] }));
   };
@@ -30,7 +85,7 @@ const CourseDetails = () => {
       <div className="flex md:flex-row flex-col-reverse gap-10 relative items-start justify-between md:px-36 px-8 md:pt-30 pt-20 text-left">
         <div className="absolute top-0 left-0 w-full -z-1 bg-gradient-to-b from-indigo-100/80 h-section-height"></div>
         {/* left coulumn */}
-        <div className="max-w-xl z-10 text-gray-500">
+        <div className="md:w-1/2 z-10 text-gray-500">
           <h1 className="md:text-course-details-heading-large text-course-details-heading-small font-semibold text-gray-800">{courseData.courseTitle}</h1>
           <p
             className="pt-4 md:text-base text-small"
@@ -51,11 +106,11 @@ const CourseDetails = () => {
             <p className="text-red-500">
               {courseData.enrolledStudents.length} {courseData.enrolledStudents.length > 1 ? "students" : "student"}
             </p>
-           
+
           </div>
 
           <p className="text-sm">
-            Course by <span className="text-blue-600">Qdemy Group</span>
+            Course by <span className="text-blue-600">{courseData.educator.name}</span>
           </p>
 
           <div className="pt-8 text-gray-800">
@@ -119,7 +174,7 @@ const CourseDetails = () => {
         </div>
 
         {/* right coulumn */}
-        <div className="max-w-course-card z-10 shadow-custom-card rounded-t md:rounded-none overflow-hidden bg-white min-w-[300px] sm:min-w-[420px]">
+        <div className="md:w-1/2 z-10 shadow-custom-card rounded-t md:rounded-none overflow-hidden bg-white">
           {playerData ? <YouTube videoId={playerData.videoId} opts={{ playerVars: { autoplay: 1 } }} iframeClassName="w-full aspect-video" /> : <img src={courseData.courseThumbnail} alt="" />}
 
           <div className="p-5">
@@ -155,15 +210,15 @@ const CourseDetails = () => {
                 <p>{numberLecturesCalc(courseData)} lessons</p>
               </div>
             </div>
-            <button className="bg-red-500 hover:bg-red-600 duration-300 md:mt-6 mt-4 w-full py-3 rounded text-white font-medium">{isAlreadyEnrolled ? "already enrolled " : "enroll now"}</button>
+            <button onClick={enrollCourse} className="bg-red-500 hover:bg-red-600 duration-300 md:mt-6 mt-4 w-full py-3 rounded text-white font-medium">{isAlreadyEnrolled ? "already enrolled " : "enroll now"}</button>
             <div className="pt-6">
-              <p className="md:text-xl text-lg font-medium text-gray-800">what is in the course</p>
+              <p className="md:text-xl text-lg font-medium text-gray-800">What's Included</p>
               <ul className="ml-4 pt-2 text-sm md:text-default list-disc text-gray-500">
-                <li>lifetime access with free updates</li>
-                <li>lifetime access with free updates</li>
-                <li>lifetime access with free updates</li>
-                <li>lifetime access with free updates</li>
-                <li>lifetime access with free updates</li>
+                <li>{courseData.courseContent.length} chapters</li>
+                <li>{numberLecturesCalc(courseData)} lectures</li>
+                <li>{courseDurationCalc(courseData)} total duration</li>
+                <li>Lifetime access with free updates</li>
+                <li>Certificate of completion</li>
               </ul>
             </div>
           </div>

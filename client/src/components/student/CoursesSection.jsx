@@ -6,7 +6,7 @@ import CourseCard from "./CourseCard";
 
 const CoursesSection = () => {
 
-const {allCourses}=useContext(AppContext)
+  const { allCourses } = useContext(AppContext)
 
   return (
     <div className="w-10/12 pb-14 text-center" >
@@ -22,18 +22,18 @@ const {allCourses}=useContext(AppContext)
       </div>
       <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5 mb-10">
 
-      
-
-
-    {allCourses.slice(4,8).map((course,index )=><CourseCard key={index} course={course}/>)}
 
 
 
+        {allCourses.slice(0, 4).map((course, index) => <CourseCard key={index} course={course} />)}
 
-        
-     
+
+
+
+
+
       </div>
-      <Link to={"/course-list"} onClick={()=>{scrollTo(0,0)}} className="py-3 px-5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">All Courses</Link>
+      <Link to={"/course-list"} onClick={() => { scrollTo(0, 0) }} className="py-3 px-5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all">All Courses</Link>
     </div>
   );
 };
