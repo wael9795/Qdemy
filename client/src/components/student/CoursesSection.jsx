@@ -25,7 +25,7 @@ const CoursesSection = () => {
 
 
 
-        {allCourses.slice(0, 4).map((course, index) => <CourseCard key={index} course={course} />)}
+        {allCourses?.slice(0, 4).map((course, index) => <CourseCard key={index} course={course} />)}
 
 
 

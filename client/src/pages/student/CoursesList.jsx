@@ -18,10 +18,10 @@ const CoursesList = () => {
       const tempCourses = allCourses.slice();
       input
         ? setFilterCourse(
-            tempCourses.filter((item) =>
-              item.courseTitle.toLowerCase().includes(input.toLowerCase())
-            )
+          tempCourses.filter((item) =>
+            item.courseTitle.toLowerCase().includes(input.toLowerCase())
           )
+        )
         : setFilterCourse(tempCourses);
     }
   }, [allCourses, input]);
@@ -35,7 +35,7 @@ const CoursesList = () => {
       <div className="w-full flex justify-center items-center mb-20">
         <div className="w-9/12 grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-5">
           {filterCourse.length > 0 ? (
-            filterCourse.map((course, index) => (
+            filterCourse?.map((course, index) => (
               <CourseCard key={index} course={course} />
             ))
           ) : (
