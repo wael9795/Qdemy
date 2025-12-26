@@ -146,8 +146,8 @@ const AddCourse = () => {
           <p>Course Title</p>
           <input onChange={(e) => setCourseTitle(e.target.value)} type="text" value={courseTitle} placeholder="type here" className="outline-none md:py-2.5 py-2 px-3 rounded border border-gray-500" required />
         </div>
-        <div className="flex flex-col gap-1">
-          <p>Course Dsecrptiton</p>
+        <div className="flex flex-col">
+          <p className="mb-2">Course Dsecrptiton</p>
           <div ref={editorRef}></div>
         </div>
 

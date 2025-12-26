@@ -166,23 +166,23 @@ export const dummyEducatorData = {
 
 export const dummyTestimonial = [
   {
-    name: "Donald Jackman",
-    role: "SWE 1 @ Amazon",
-    image: assets.profile_img_1,
+    name: "Katalina Skinner",
+    role: "Frontend Developer",
+    image: assets.employee_01,
     rating: 5,
     feedback: "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
   },
   {
-    name: "Richard Nelson",
-    role: "SWE 2 @ Samsung",
-    image: assets.profile_img_2,
+    name: "Tony Lester",
+    role: "Backend Developer",
+    image: assets.employee_02,
     rating: 4,
     feedback: "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
   },
   {
-    name: "James Washington",
-    role: "SWE 2 @ Google",
-    image: assets.profile_img_3,
+    name: "Jack Smith",
+    role: "Full Stack Developer",
+    image: assets.employee_03,
     rating: 4.5,
     feedback: "I've been using Imagify for nearly two years, primarily for Instagram, and it has been incredibly user-friendly, making my work much easier.",
   },
