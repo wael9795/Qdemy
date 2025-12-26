@@ -62,21 +62,30 @@ import { clerkMiddleware } from "@clerk/express";
 
 const app = express();
 
-// middlewares العامة
+// CORS
 app.use(cors());
+
+// ✅ JSON middleware (لكل شيء ما عدا Stripe)
+app.use((req, res, next) => {
+  if (req.originalUrl === "/stripe") {
+    next();
+  } else {
+    express.json()(req, res, next);
+  }
+});
 
 // اتصالات
 await connectDB();
 await connectCloudinary();
 
-// 🔓 Routes عامة (بدون Clerk)
+// 🔓 Routes عامة
 app.get("/", (req, res) => {
   res.send("API Working");
 });
 
 app.use("/api/course", courseRouter);
 
-// 🔐 Clerk بعد الـ public routes
+// 🔐 Clerk
 app.use(clerkMiddleware());
 
 // Routes محمية
@@ -85,8 +94,11 @@ app.use("/api/user", userRouter);
 
 // Webhooks
 app.post("/clerk", clerkWebhooks);
-app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
-app.use(express.json());
+app.post(
+  "/stripe",
+  express.raw({ type: "application/json" }),
+  stripeWebhooks
+);
 
 // 404
 app.use((req, res) => {
