@@ -33,7 +33,7 @@ app.use("/api/course", express.json(), courseRouter);
 
 app.use("/api/user", express.json(), userRouter);
 
-app.post("/stripe", express.raw({type: "application/json"}), stripeWebhooks);
+app.post("/stripe", express.raw({ type: "application/json" }), stripeWebhooks);
 
 
 
@@ -41,6 +41,11 @@ app.post("/stripe", express.raw({type: "application/json"}), stripeWebhooks);
 
 //port
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+if (process.env.VITE_NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
