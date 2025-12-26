@@ -65,7 +65,16 @@ const app = express();
 // ✅ middlewares العامة
 app.use(cors());
 app.use(express.json());
-app.use(clerkMiddleware());
+app.use(
+  clerkMiddleware({
+    publicRoutes: [
+      "/",
+      "/api/course/all",
+      "/api/course/:id"
+    ]
+  })
+);
+
 
 // ✅ اتصالات
 await connectDB();
