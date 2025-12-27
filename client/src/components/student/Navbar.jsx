@@ -67,7 +67,13 @@ const Navbar = () => {
           )}
         </div>
         {user ? (
-          <UserButton />
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: 'w-10 h-10'
+              }
+            }}
+          />
         ) : (
           <button
             onClick={() => openSignIn()}
@@ -87,7 +93,13 @@ const Navbar = () => {
           )}
         </div>
         {user ? (
-          <UserButton />
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: 'w-10 h-10'
+              }
+            }}
+          />
         ) : (
           <button onClick={() => openSignIn()}>
             <img src={assets.user_icon} alt="" />

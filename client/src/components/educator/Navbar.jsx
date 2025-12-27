@@ -12,7 +12,17 @@ const Navbar = () => {
       </Link>
       <div className="flex items-center gap-5 text-gray-500 relative">
         <p>Hi {user ? user.fullName : 'Developers'}</p>
-        {user ? <UserButton /> : <img className="max-w-8" src={assets.profile_img} />}
+        {user ? (
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: 'w-10 h-10'
+              }
+            }}
+          />
+        ) : (
+          <img className="max-w-10" src={assets.profile_img} />
+        )}
       </div>
     </div>
   );

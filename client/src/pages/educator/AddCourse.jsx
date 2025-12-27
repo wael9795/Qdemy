@@ -161,7 +161,7 @@ const AddCourse = () => {
             <label htmlFor="thumbnailImage" className="flex items-center gap-3">
               <img src={assets.file_upload_icon} alt="" className="p-3 bg-blue-500 rounded" />
               <input type="file" id="thumbnailImage" onChange={(e) => setImage(e.target.files[0])} accept="image/*" hidden />
-              {image && <img className="max-h-10" src={URL.createObjectURL(image)} alt="" />}
+              {image && <img className="max-h-14" src={URL.createObjectURL(image)} alt="" />}
             </label>
           </div>
         </div>
