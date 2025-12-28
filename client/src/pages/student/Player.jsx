@@ -53,7 +53,7 @@ const Player = () => {
     }
   }, [enrolledCourse]); // إضافة 
 
-  const markLectureAsCompleted = async () => {
+  const markLectureAsCompleted = async (lectureId) => {
     try {
       const token = await getToken();
       const { data } = await axios.post(backendUrl + "/api/user/update-course-progress", {
