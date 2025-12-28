@@ -122,8 +122,8 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-// الحل: اجعل السيرفر يعمل دائماً سواء محلياً أو في الإنتاج
-app.listen(PORT, () => {
+// التغيير هنا: إضافة '0.0.0.0'
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
 
