@@ -108,12 +108,23 @@ app.use((req, res) => {
   });
 });
 
+// const PORT = process.env.PORT || 5000;
+
+// if (process.env.NODE_ENV !== 'production') {
+//   app.listen(PORT, () => {
+//     console.log(`Server running on port ${PORT}`);
+//   });
+// }
+
+// export default app;
+
+// ... (باقي الكود كما هو) ...
+
 const PORT = process.env.PORT || 5000;
 
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-  });
-}
+// الحل: اجعل السيرفر يعمل دائماً سواء محلياً أو في الإنتاج
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
 
 export default app;
