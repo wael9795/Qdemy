@@ -148,7 +148,7 @@ const Player = () => {
                     <ul className="list-disc md:pl-10 pl-4 pr-4 py-2 text-gray-600 border-t border-gray-300">
                       {chapter.chapterContent?.map((lecture, index) => (
                         <li key={index} className="flex items-start gap-2 py-1">
-                          <img src={progressData && progressData.lectureCompleted.includes(lecture.lectureId) ? assets.blue_tick_icon : assets.play_icon} alt="play icon" className="w-4 h-4 mt-1" />
+                          <img src={progressData && progressData.lectureCompleted && progressData.lectureCompleted.includes(lecture.lectureId) ? assets.blue_tick_icon : assets.play_icon} alt="play icon" className="w-4 h-4 mt-1" />
                           <div className="flex items-center justify-between w-full to-gray-800 text-xs md:text-default">
                             <p>{lecture.lectureTitle}</p>
                             <div className="flex gap-2">
@@ -196,7 +196,7 @@ const Player = () => {
                 <p>
                   {playerData.chapter}.{playerData.lecture} {playerData.lectureTitle}
                 </p>
-                <button onClick={() => markLectureAsCompleted(playerData.lectureId)} className='text-blue-600'>{progressData && progressData.lectureCompleted.includes(playerData.lectureId) ? "Completed" : "Mark Complete"}</button>
+                <button onClick={() => markLectureAsCompleted(playerData.lectureId)} className='text-blue-600'>{progressData && progressData.lectureCompleted && progressData.lectureCompleted.includes(playerData.lectureId) ? "Completed" : "Mark Complete"}</button>
               </div>
             </div>
           ) : (
