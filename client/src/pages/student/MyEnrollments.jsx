@@ -21,7 +21,7 @@ const MyEnrollments = () => {
           }
         });
         let totalLectures = numberLecturesCalc(course);
-        let lectureCompleted = data.progressData ? data.progressData.lectureCompleted.length : 0;
+        let lectureCompleted = (data.progressData && data.progressData.lectureCompleted) ? data.progressData.lectureCompleted.length : 0;
         return { totalLectures, lectureCompleted };
       }));
       setProgArray(tempProgressArray);
